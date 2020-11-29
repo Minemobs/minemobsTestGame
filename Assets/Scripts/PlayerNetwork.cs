@@ -13,6 +13,8 @@ public class PlayerNetwork : NetworkBehaviour
     public CharacterController characterController;
     public CapsuleCollider capsuleCollider;
     public NetworkRigidbody networkRigidbody;
+
+    private Camera cam;
     
     void OnValidate()
     {
@@ -35,8 +37,10 @@ public class PlayerNetwork : NetworkBehaviour
 
         Camera.main.orthographic = false;
         Camera.main.transform.SetParent(transform);
-        Camera.main.transform.localPosition = new Vector3(0f, 3f, -8f);
+        Camera.main.transform.localPosition = new Vector3(0f, 0f, 0f);
         Camera.main.transform.localEulerAngles = new Vector3(10f, 0f, 0f);
+        cam = Camera.main;
+        headRotation = 0;
     }
     
     void OnDisable()
@@ -45,7 +49,7 @@ public class PlayerNetwork : NetworkBehaviour
         {
             Camera.main.orthographic = true;
             Camera.main.transform.SetParent(null);
-            Camera.main.transform.localPosition = new Vector3(0f, 70f, 0f);
+            Camera.main.transform.localPosition = new Vector3(0f, 0f, 0f);
             Camera.main.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
         }
     }
@@ -63,6 +67,7 @@ public class PlayerNetwork : NetworkBehaviour
     public bool isGrounded = true;
     public bool isFalling;
     public Vector3 velocity;
+    public float headRotation;
 
     private void Update()
     {
@@ -73,21 +78,30 @@ public class PlayerNetwork : NetworkBehaviour
         vertical = Input.GetAxis("Vertical");
 
         // Q and E cancel each other out, reducing the turn to zero
-        if (Input.GetKey(KeyCode.A))
+        /*if (Input.GetKey(KeyCode.A))
             turn = Mathf.MoveTowards(turn, -maxTurnSpeed, turnSensitivity);
         if (Input.GetKey(KeyCode.E))
             turn = Mathf.MoveTowards(turn, maxTurnSpeed, turnSensitivity);
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.E))
             turn = Mathf.MoveTowards(turn, 0, turnSensitivity);
         if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.E))
-            turn = Mathf.MoveTowards(turn, 0, turnSensitivity);
+            turn = Mathf.MoveTowards(turn, 0, turnSensitivity);*/
+        
+        float x = Input.GetAxis("Mouse X") * turnSensitivity * Time.deltaTime;
+        float y = Input.GetAxis("Mouse Y") * turnSensitivity * Time.deltaTime * -1f;
+
+        transform.Rotate(0f, x, 0f);
+
+        headRotation += y;
+        
+        cam.transform.localEulerAngles = new Vector3(headRotation, 0f,0f);
 
         if (isGrounded)
             isFalling = false;
 
         if ((isGrounded || !isFalling) && jumpSpeed < 1f && Input.GetKey(KeyCode.Space))
         {
-            jumpSpeed = Mathf.Lerp(jumpSpeed, 1f, 0.5f);
+            jumpSpeed = Mathf.Lerp(jumpSpeed, 1f, 1f);
         }
         else if (!isGrounded)
         {

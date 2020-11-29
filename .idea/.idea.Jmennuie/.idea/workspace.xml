@@ -65,7 +65,7 @@
       <option name="presentableId" value="Default" />
       <updated>1606603677456</updated>
       <workItem from="1606603692759" duration="3475000" />
-      <workItem from="1606654413402" duration="6632000" />
+      <workItem from="1606654413402" duration="8425000" />
     </task>
     <servers />
   </component>
@@ -76,5 +76,11 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="654" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1606671710347">
+      <screen x="62" y="0" width="1858" height="1080" />
+    </state>
+    <state x="654" y="235" width="672" height="678" key="search.everywhere.popup/62.0.1858.1080/1920.0.1440.860@62.0.1858.1080" timestamp="1606671710347" />
   </component>
 </project>

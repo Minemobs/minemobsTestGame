@@ -161,7 +161,7 @@ MonoBehaviour:
   capsuleCollider: {fileID: 4111226637597451952}
   networkRigidbody: {fileID: 796141290450847104}
   moveSpeed: 5
-  turnSensitivity: 5
+  turnSensitivity: 300
   maxTurnSpeed: 150
   horizontal: 0
   vertical: 0
